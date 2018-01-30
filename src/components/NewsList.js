@@ -25,7 +25,7 @@ class NewsList extends Component {
 const styles = StyleSheet.create({
     container:{
         width:'100%',
-        paddingBottom: 200,
+        paddingBottom: 140,
 
 
 

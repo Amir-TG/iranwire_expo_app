@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { Header, Icon } from "react-native-elements";
 import ajax from "../ajax";
 import NewsList from "./NewsList";
@@ -14,6 +14,13 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     const homePage = await ajax.fetchHomePage();
+    let news = homePage.headlines
+    let cartoons = homePage.cartoons
+    cartoons.forEach(element => {
+      news.push(element)
+      
+    });
+
     this.setState({
       headlines: homePage.headlines
     });
@@ -55,7 +62,7 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          <Text style={styles.header}>ایران‌وایر</Text>
+          <Image source={require('../../assets/IranWire_Black.png')}/>
         </View>
       );
     }
@@ -65,8 +72,9 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    alignSelf: 'center',
+    marginTop: 200,
+
   },
   header: {
     fontSize: 40

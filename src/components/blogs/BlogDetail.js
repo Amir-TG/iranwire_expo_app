@@ -11,11 +11,10 @@ import {
 } from "react-native";
 import { Card, ListItem, Button, Icon, Header } from "react-native-elements";
 import PropTypes from "prop-types";
-import EachNews from "./EachNews";
-import ajax from "../ajax";
 import striptags from "striptags";
+import ajax from '../../ajax'
 
-class NewsDetail extends Component {
+class FeaturDetail extends Component {
   imageXPos = new Animated.Value(0);
   imagePanResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -60,7 +59,7 @@ class NewsDetail extends Component {
   };
 
   static PropTypes = {
-    newsItem: PropTypes.object.isRequired,
+    blogsItem: PropTypes.object.isRequired,
     onBack: PropTypes.func.isRequired
   };
 
@@ -73,7 +72,7 @@ class NewsDetail extends Component {
   };
 
   async componentDidMount() {
-    const news = await ajax.fetchNewsDetails(this.props.newsItem.pk);
+    const news = await ajax.fetchfeaturesDetails(this.props.blogsItem.pk);
 
     if (news.single.slides.length > 0) {
       this.setState({
@@ -106,7 +105,7 @@ class NewsDetail extends Component {
         <ScrollView style={styles.container}>
           <View>
             <Text style={[styles.title, { fontFamily: "IranSansB" }]}>
-              {this.props.newsItem.title}
+              {this.props.blogsItem.title}
             </Text>
             <Animated.View
               {...this.imagePanResponder.panHandlers}
@@ -182,7 +181,7 @@ const styles = StyleSheet.create({
   },
   body: {
     textAlign: "right",
-    padding: 20,
+    paddingHorizontal: 20,
     paddingBottom: 100,
     lineHeight: 20
   },
@@ -192,6 +191,7 @@ const styles = StyleSheet.create({
   menu: {
     marginTop: -30,
     marginRight: 10,
+
   },
   sub: {
     padding: 10,
@@ -204,4 +204,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NewsDetail;
+export default FeaturDetail;

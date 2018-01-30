@@ -11,11 +11,10 @@ import {
 } from "react-native";
 import { Card, ListItem, Button, Icon, Header } from "react-native-elements";
 import PropTypes from "prop-types";
-import EachNews from "./EachNews";
-import ajax from "../ajax";
 import striptags from "striptags";
+import ajax from '../../ajax'
 
-class NewsDetail extends Component {
+class FeaturDetail extends Component {
   imageXPos = new Animated.Value(0);
   imagePanResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -60,7 +59,7 @@ class NewsDetail extends Component {
   };
 
   static PropTypes = {
-    newsItem: PropTypes.object.isRequired,
+    featureItem: PropTypes.object.isRequired,
     onBack: PropTypes.func.isRequired
   };
 
@@ -73,7 +72,7 @@ class NewsDetail extends Component {
   };
 
   async componentDidMount() {
-    const news = await ajax.fetchNewsDetails(this.props.newsItem.pk);
+    const news = await ajax.fetchfeaturesDetails(this.props.featureItem.pk);
 
     if (news.single.slides.length > 0) {
       this.setState({
@@ -106,7 +105,7 @@ class NewsDetail extends Component {
         <ScrollView style={styles.container}>
           <View>
             <Text style={[styles.title, { fontFamily: "IranSansB" }]}>
-              {this.props.newsItem.title}
+              {this.props.featureItem.title}
             </Text>
             <Animated.View
               {...this.imagePanResponder.panHandlers}
@@ -127,8 +126,10 @@ class NewsDetail extends Component {
                         "https://iranwire.com/" +
                         this.state.slides[this.state.indexImage].image
                     }}
+                    
                     style={styles.image}
                   />
+                  
                   <Text style={styles.sub}>
                     {this.state.slides[this.state.indexImage].image_title}
                   </Text>
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
   },
   body: {
     textAlign: "right",
-    padding: 20,
+    paddingHorizontal: 20,
     paddingBottom: 100,
     lineHeight: 20
   },
@@ -204,4 +205,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NewsDetail;
+export default FeaturDetail;
